@@ -48,7 +48,6 @@ public class accountBO {
 	
 	public boolean checkUsername(String username) {
 		accountDAO accountDAO = new accountDAO();
-		System.out.println("BO");
 		if(accountDAO.checkUsername(username)) return true;
 		return false;
 	}

@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%>
 		      }
 	      
 	      function add() {
-	    	  window.location.href = '../C_Post?requestadd="1"';
+	    	  window.location.href = '../post/create';
           }
     </script>
     </head>

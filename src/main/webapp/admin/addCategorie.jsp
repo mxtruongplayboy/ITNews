@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
           }
 	      
 	      function cancel() {
-	    	  window.location.href = '../C_Categorie';
+	    	  window.location.href = '../category/getAll';
 	      }
 	      
 	      function getCurrentDate() {
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Thêm danh mục</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../C_Categorie" class="myform-form" onsubmit="return validateForm()">
+					    <form method="POST" action="../category/create" class="myform-form" onsubmit="return validateForm()">
 					        
 					        <% if(Categorie != null) {
 					      		request.getSession().removeAttribute("Categorie");

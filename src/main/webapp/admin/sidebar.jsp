@@ -25,21 +25,21 @@ pageEncoding="UTF-8"%>
                 </li>
 
                 <li class="nav-item nav-item__active">
-                    <a class="nav-link" href="../C_Categorie">
+                    <a class="nav-link" href="../category/getAll">
                         <i class="fa-solid fa-film nav-icon"></i>
                         Danh mục
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../C_Post">
+                    <a class="nav-link" href="../post/getAll">
                         <i class="fa-solid fa-receipt nav-icon"></i>
                         Tin tức
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../C_Account">
+                    <a class="nav-link" href="../account/getall">
                         <i class="fa-solid fa-chart-bar nav-icon"></i>
                         Quản trị viên
                     </a>

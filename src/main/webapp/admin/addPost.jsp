@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
           }
 	      
 	      function cancel() {
-	    	  window.location.href = '../C_Post';
+	    	  window.location.href = '../post/getAll';
 	      }
 	      
 	      function getCurrentDate() {

@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
           }
 	      
 	      function cancel() {
-	    	  window.location.href = '../C_Categorie';
+	    	  window.location.href = '../category/getAll';
 	      }
 	      
 	      function getCurrentDate() {
@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Cập nhật thông tin danh mục</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../C_Categorie" class="myform-form" onsubmit="return validateForm()">
+					    <form method="POST" action="../category/update" class="myform-form" onsubmit="return validateForm()">
 					    	<%
 					    		String error = (String)request.getSession().getAttribute("error");
 						    	categorie Categorie = (categorie)request.getSession().getAttribute("Categorie");
