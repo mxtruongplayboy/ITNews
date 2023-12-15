@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
 		  }
 	      
 	      function add() {
-	    	  window.location.href = '../C_Account?requestadd="1"';
+	    	  window.location.href = '../account/create';
           }
     </script>
     </head>
@@ -118,7 +118,7 @@ pageEncoding="UTF-8"%>
         </section>
        	
       	<div class="popup-delete popup">
-      		<form method="POST" action="../C_Account" class="delete-form">
+      		<form method="POST" action="../account/delete" class="delete-form">
       			<input type="hidden" id="deleteId" name="deleteId" value="" />
         		<p>Bạn có chắc chắn xoá ID: <span id="deleteText"></span> ?</p>
 		        <button type="submit" class="btn success-btn " name="delete">Xác nhận</button>
@@ -127,7 +127,7 @@ pageEncoding="UTF-8"%>
       	</div>
       	
       	<div class="popup-update popup">
-      		<form method="POST" action="../C_Account" class="edit-form">
+      		<form method="GET" action="../account/update" class="edit-form">
       			<input type="hidden" id="updateId" name="updateId" value="" />
         		<p>Bạn có muốn sửa ID: <span id="updateText"></span> ?</p>
 		        <button type="submit" class="btn success-btn " name="requestupdate">Xác nhận</button>

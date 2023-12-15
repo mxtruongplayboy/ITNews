@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
           }
 	      
 	      function cancel() {
-	    	  window.location.href = '../C_Account';
+	    	  window.location.href = '../account/getall';
 	      }
 	      
 	      function getCurrentDate() {
@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Cập nhật thông tin quản trị viên</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../C_Account" class="myform-form" onsubmit="return validateForm()">
+					    <form method="POST" action="../account/update" class="myform-form" onsubmit="return validateForm()">
 					    	<%
 					    		String newPassword = (String)request.getSession().getAttribute("newPassword");
 					    		if(newPassword != null) request.getSession().removeAttribute("newPassword");

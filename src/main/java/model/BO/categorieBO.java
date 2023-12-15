@@ -1,6 +1,7 @@
 package model.BO;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Bean.categorie;
@@ -36,7 +37,9 @@ public class categorieBO {
 	
 	public List<categorieFK> getAllCategorieFK() {
 		categorieDAO categorieDAO = new categorieDAO();
-		return categorieDAO.getAllCategorieFK();
+		List<categorieFK> list = new ArrayList<>();
+		list = categorieDAO.getAllCategorieFK();
+		return list;
 	}
 	
 	public boolean checkSlug(String slug) {
