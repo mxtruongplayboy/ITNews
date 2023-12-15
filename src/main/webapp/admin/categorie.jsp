@@ -41,7 +41,7 @@ pageEncoding="UTF-8"%>
 		      }     
 	      
 	      function add() {
-	    	  window.location.href = '../C_Categorie?requestadd="1"';
+	    	  window.location.href = '../category/create';
           }
 	      
 	      function showAnnouce() {
@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%>
         </section>
       	
       	<div class="popup-delete popup">
-      		<form method="POST" action="../C_Categorie" class="delete-form">
+      		<form method="POST" action="../category/delete" class="delete-form">
       			<input type="hidden" id="deleteId" name="deleteId" value="" />
         		<p>Bạn có chắc chắn xoá ID: <span id="deleteText"></span> ?</p>
 		        <button type="submit" class="btn success-btn load-target" name="delete">Xác nhận</button>
@@ -123,7 +123,7 @@ pageEncoding="UTF-8"%>
       	</div>
       	
       	<div class="popup-update popup">
-      		<form method="POST" action="../C_Categorie" class="edit-form">
+      		<form method="GET" action="../category/update" class="edit-form">
       			<input type="hidden" id="updateId" name="updateId" value="" />
         		<p>Bạn có muốn sửa ID: <span id="updateText"></span> ?</p>
 		        <button type="submit" class="btn success-btn load-target" name="updateForm">Xác nhận</button>

@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
           }
 	      
 	      function cancel() {
-	    	  window.location.href = '../C_Account';
+	    	  window.location.href = '../account/getall';
 	      }
 	      
 	      function getCurrentDate() {
@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Thêm quản trị viên</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../C_Account" class="myform-form" onsubmit="return validateForm()">
+					    <form method="POST" action="../account/create" class="myform-form" onsubmit="return validateForm()">
 					        <label>Tên tài khoản</label>
 					        <div class="myform_block">
 					        	<input type="text" id="firstUsername" name="firstUsername" class="input_text" value="admin" readonly style="width: 30%"/><br /><br />
