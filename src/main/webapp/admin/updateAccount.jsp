@@ -52,6 +52,9 @@ pageEncoding="UTF-8"%>
     		if((account)request.getSession().getAttribute("AccountLogin") == null) {
     			response.sendRedirect("../account/checkLogin");
     		}
+    		else if(((account)request.getSession().getAttribute("AccountLogin")).getRole().equals("Admin")) {
+				response.sendRedirect("../home/homeAdmin");
+			}
         %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">

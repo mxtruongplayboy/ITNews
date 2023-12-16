@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
     </head>
     <body>
         <section class="sidebar" id="sidebar">
-            <a href="#!" class="brand">
+            <a href="../home/homeAdmin" class="brand">
                 <img
                     class="brand__logo"
                     src="../assets/images/avatar.jpg"
@@ -18,13 +18,13 @@ pageEncoding="UTF-8"%>
             </a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="../home/homeAdmin" class="nav-link">
                         <i class="fa-solid fa-house nav-icon"></i>
-                        Trang chủ
+                        Hồ sơ cá nhân
                     </a>
                 </li>
 
-                <li class="nav-item nav-item__active">
+                <li class="nav-item">
                     <a class="nav-link" href="../category/getAll">                
                         <i class="fa-solid fa-list nav-icon"></i>
                         Danh mục

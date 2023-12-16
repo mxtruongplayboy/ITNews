@@ -52,7 +52,7 @@
                     </form>
                 </div>
                 <div class="header__admin">
-                    <a href="#!" class="header__login-btn">Login</a>
+                    <a href="../admin/login.jsp" class="header__login-btn">Đăng nhập</a>
                 </div>
             </div>
         </div>

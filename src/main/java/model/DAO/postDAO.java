@@ -39,6 +39,29 @@ public class postDAO {
 		return listPost;
 	}
 	
+	public List<post> getAllPostByAccountID(int id) {
+		List<post> listPost = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
+			Statement sm = conn.createStatement();
+			String sql = "SELECT posts.*, categories.name, accounts.fullname\r\n"
+					+ "FROM posts\r\n"
+					+ "JOIN categories ON posts.category_id = categories.id\r\n"
+					+ "JOIN accounts ON posts.accounts_id = accounts.id\r\n"
+					+ "WHERE accounts.id = "+ id
+					+ "";
+			ResultSet rs = sm.executeQuery(sql);
+			while(rs.next()) {
+				listPost.add(new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(11)), new accountFK(rs.getInt(9), rs.getString(12)), rs.getBoolean(10)));
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return listPost;
+	}
+	
 	public post getFirstPostByAccountID(int id) {
 		post Post = null;
 		try {
@@ -189,5 +212,28 @@ public class postDAO {
 			System.out.print(e);
 		}
 		return postDetail;
+	}
+	
+	public post getPostByID(int id) {
+		post Post = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
+			Statement sm = conn.createStatement();
+			String sql = "SELECT posts.*, categories.name, accounts.fullname " +
+	                 "FROM posts " +
+	                 "JOIN categories ON posts.category_id = categories.id " +
+	                 "JOIN accounts ON posts.accounts_id = accounts.id " +
+	                 "WHERE posts.id = "+ id +
+	                 ";";
+			ResultSet rs = sm.executeQuery(sql);
+			if(rs.next()) {
+				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(11)), new accountFK(rs.getInt(9), rs.getString(12)), rs.getBoolean(10));
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return Post;
 	}
 }

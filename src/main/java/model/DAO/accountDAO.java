@@ -70,21 +70,37 @@ public class accountDAO {
 		}
 	}
 	
-	public void updateAccount(int id, String username, String fullname, String role, Date created_at, Date updated_at, String status) {
+	public void updateAccount(int id, String username, String password, String fullname, String role, Date created_at, Date updated_at, String status) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
 			Statement sm = conn.createStatement();
-			String sql = "UPDATE accounts SET username=?, fullname=?, role=?, created_at=?, updated_at=?, status=? WHERE id=?";
-			try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-			    preparedStatement.setString(1, username);
-			    preparedStatement.setString(2, fullname);
-			    preparedStatement.setString(3, role);
-			    preparedStatement.setDate(4, created_at);
-			    preparedStatement.setDate(5, updated_at);
-			    preparedStatement.setString(6, status);
-			    preparedStatement.setInt(7, id);
-			    preparedStatement.executeUpdate();
+			if(password.equals("")) {
+				String sql = "UPDATE accounts SET username=?, fullname=?, role=?, created_at=?, updated_at=?, status=? WHERE id=?";
+				try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+				    preparedStatement.setString(1, username);
+				    preparedStatement.setString(2, fullname);
+				    preparedStatement.setString(3, role);
+				    preparedStatement.setDate(4, created_at);
+				    preparedStatement.setDate(5, updated_at);
+				    preparedStatement.setString(6, status);
+				    preparedStatement.setInt(7, id);
+				    preparedStatement.executeUpdate();
+				}
+			}
+			else {
+				String sql = "UPDATE accounts SET username=?, password=?, fullname=?, role=?, created_at=?, updated_at=?, status=? WHERE id=?";
+				try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+				    preparedStatement.setString(1, username);
+				    preparedStatement.setString(2, password);
+				    preparedStatement.setString(3, fullname);
+				    preparedStatement.setString(4, role);
+				    preparedStatement.setDate(5, created_at);
+				    preparedStatement.setDate(6, updated_at);
+				    preparedStatement.setString(7, status);
+				    preparedStatement.setInt(8, id);
+				    preparedStatement.executeUpdate();
+				}
 			}
 		}
 		catch (Exception e) {

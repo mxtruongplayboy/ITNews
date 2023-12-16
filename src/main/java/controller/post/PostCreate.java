@@ -50,8 +50,8 @@ public class PostCreate extends HttpServlet {
 		boolean hot =Boolean.parseBoolean(request.getParameter("hot"));
 		postBO postBO = new postBO();
 		for (Part part : parts) {
-        	fileName = getFileExtension(part);
-            part.write("E:\\JAVA\\ITNews\\src\\main\\webapp\\assets\\imagesPost" + File.separator + fileName);
+        	fileName = title + getFileExtension(part);
+            part.write("E:\\JAVA\\ITNews\\src\\main\\webapp\\assets\\imagePosts" + File.separator + fileName);
         }
         postBO.addPost(title, fileName, content, status, categorieID, accountID, hot);
         List<post> listPost = new ArrayList<>();

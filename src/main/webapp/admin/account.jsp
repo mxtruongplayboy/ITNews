@@ -58,6 +58,9 @@ pageEncoding="UTF-8"%>
     		if((account)request.getSession().getAttribute("AccountLogin") == null) {
     			response.sendRedirect("../account/checkLogin");
     		}
+    		else if(((account)request.getSession().getAttribute("AccountLogin")).getRole().equals("Admin")) {
+				response.sendRedirect("../home/homeAdmin");
+			}
         %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
@@ -98,12 +101,12 @@ pageEncoding="UTF-8"%>
                                 <td><%= Account.getUpdated_at() %></td>
                                 <td><%= Account.getStatus() %></td>
                                 <td class="table-td-action">
+                                    <% if(Account.getRole().equals("Admin")) { %> 
                                     <button class="edit-btn table-btn" onclick="showConfirmUpdate(<%= Account.getId() %>)">
                                         <i
                                             class="fa-solid fa-pen-to-square table-btn-icon"
                                         ></i>
                                     </button>
-                                    <% if(Account.getRole().equals("Admin")) { %> 
                                     <button class="delete-btn table-btn" onclick="showConfirmDelete(<%= Account.getId() %>)">
                                         <i
                                             class="fa-solid fa-trash table-btn-icon"
