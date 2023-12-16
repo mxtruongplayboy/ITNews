@@ -43,23 +43,15 @@ pageEncoding="UTF-8"%>
 	          const month = String(now.getMonth() + 1).padStart(2, '0');
 	          const day = String(now.getDate()).padStart(2, '0');
 	          return `${year}-${month}-${day}`;
-	      }
-	      
-	      function validateSlug() {
-			  var slug = document.getElementById("slug").value;
-			  document.getElementById("slug").value = slug.toLowerCase().replace(/[^a-zA-Z0-9-.]/g, '');
-		  }
-	      
-	      function showAnnouce() {
-			  document.querySelector(".popup-annouce").classList.add("active");
-		  }
-				
-	      function unshowAnnouce() {
-			  document.querySelector(".popup-annouce").classList.remove("active");
-		  }
+	      }  
     </script>
     </head>
     <body>
+    	<%
+    		if((account)request.getSession().getAttribute("AccountLogin") == null) {
+    			response.sendRedirect("../account/checkLogin");
+    		}
+        %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
             <%@include file="header.jsp" %>
@@ -70,7 +62,6 @@ pageEncoding="UTF-8"%>
          				<div class="myform__line"></div>
 					    <form method="POST" action="../category/update" class="myform-form" onsubmit="return validateForm()">
 					    	<%
-					    		String error = (String)request.getSession().getAttribute("error");
 						    	categorie Categorie = (categorie)request.getSession().getAttribute("Categorie");
 								if(Categorie != null) {
 									request.getSession().removeAttribute("Categorie");
@@ -78,9 +69,7 @@ pageEncoding="UTF-8"%>
 					    	<label>Mã danh mục</label>
 					        <input type="text" id="id" name="id" value="<%= Categorie.getId() %>" readonly class="input_text"/><br /><br />
 					        <label>Tên danh mục</label>
-					        <input type="text" id="name" name="name" value="<%= Categorie.getName() %>" class="input_text"/><br /><br />
-					        <label>Slug</label>
-					        <input type="text" id="slug" name="slug" value="<%= Categorie.getSlug() %>" class="input_text" oninput="validateSlug()"/><br /><br />
+					        <input type="text" id="name" name="name" value="<%= Categorie.getName() %>" class="input_text"/><br /><br />		     
 					        <div class="myform_block">
 						        <div class="myform_row">
 						        	<label>Ngày tạo</label>
@@ -117,20 +106,6 @@ pageEncoding="UTF-8"%>
 					</div>
                 </div>
             </main>
-        </section>
-        <div class="popup-annouce popup">
-	      		<form method="POST" action="" class="annouce-form">
-	        		<p>Slug đã tồn tại, hãy chọn slug khác</p>
-			        <button type="reset" class="btn success-btn " onclick="unshowAnnouce()">   Huỷ   </button>
-			    </form>
-      	</div>
-        <%
-      		if(error != null) {
-          		request.getSession().removeAttribute("error");
-      	%>
-	      	<script type="text/javascript">
-	      	showAnnouce();
-	      	</script>
-      	<% } %>
+        </section>    
     </body>
 </html>

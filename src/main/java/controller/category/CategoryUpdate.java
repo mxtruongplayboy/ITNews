@@ -39,18 +39,10 @@ public class CategoryUpdate extends HttpServlet {
 		Date created_at = Date.valueOf(request.getParameter("created_at"));
 		Date updated_at = Date.valueOf(request.getParameter("updated_at"));
 		String status = request.getParameter("status");
-		if(bo.checkSlug(slug)) {
-			bo.updateCategorie(id, name, slug, created_at, updated_at, status);
-			List<categorie> listCategorie =  bo.getAllCategorie();
-			request.getSession().setAttribute("listCategorie", listCategorie);
-			response.sendRedirect("../admin/categorie.jsp");
-		}
-		else {
-			categorie Categorie = new categorie(id, name, slug, created_at, updated_at, status);
-			request.getSession().setAttribute("Categorie", Categorie);
-			request.getSession().setAttribute("error", "error");
-			response.sendRedirect("../admin/updateCategorie.jsp");
-		}
+		bo.updateCategorie(id, name, created_at, updated_at, status);
+		List<categorie> listCategorie =  bo.getAllCategorie();
+		request.getSession().setAttribute("listCategorie", listCategorie);
+		response.sendRedirect("../admin/categorie.jsp");
 	}
 
 }

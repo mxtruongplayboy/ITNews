@@ -54,6 +54,11 @@ pageEncoding="UTF-8"%>
     </script>
     </head>
     <body>
+    	<%
+    		if((account)request.getSession().getAttribute("AccountLogin") == null) {
+    			response.sendRedirect("../account/checkLogin");
+    		}
+        %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
             <%@include file="header.jsp" %>
@@ -68,7 +73,6 @@ pageEncoding="UTF-8"%>
                             <tr>
                                 <th>Mã danh mục</th>
                                 <th>Tên danh mục</th>
-                                <th>Slug</th>
                                 <th>Ngày tạo</th>
                                 <th>Ngày cập nhật</th>
                                 <th>Trạng thái</th>
@@ -86,7 +90,6 @@ pageEncoding="UTF-8"%>
                             <tr>
                                 <td><%= Categorie.getId() %></td>
                                 <td><%= Categorie.getName() %></td>
-                                <td><%= Categorie.getSlug() %></td>
                                 <td><%= Categorie.getCreated_at() %></td>
                                 <td><%= Categorie.getUpdated_at() %></td>
                                 <td><%= Categorie.getStatus() %></td>

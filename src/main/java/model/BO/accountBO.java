@@ -51,4 +51,9 @@ public class accountBO {
 		if(accountDAO.checkUsername(username)) return true;
 		return false;
 	}
+	
+	public account getAccountByUsPa(String username, String password) {
+		accountDAO accountDAO = new accountDAO();
+		return accountDAO.getAccountByUsPa(username, password);
+	}
 }

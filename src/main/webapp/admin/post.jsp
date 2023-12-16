@@ -48,6 +48,11 @@ pageEncoding="UTF-8"%>
     </script>
     </head>
     <body>
+    	<%
+    		if((account)request.getSession().getAttribute("AccountLogin") == null) {
+    			response.sendRedirect("../account/checkLogin");
+    		}
+        %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
             <%@include file="header.jsp" %>
@@ -111,7 +116,7 @@ pageEncoding="UTF-8"%>
         </section>
        	
       	<div class="popup-delete popup">
-      		<form method="POST" action="../C_Post" class="delete-form">
+      		<form method="POST" action="../post/delete" class="delete-form">
       			<input type="hidden" id="deleteId" name="deleteId" value="" />
         		<p>Bạn có chắc chắn xoá ID: <span id="deleteText"></span> ?</p>
 		        <button type="submit" class="btn success-btn load-target" name="delete">Xác nhận</button>
@@ -120,7 +125,7 @@ pageEncoding="UTF-8"%>
       	</div>
       	
       	<div class="popup-update popup">
-      		<form method="POST" action="../C_Account" class="edit-form">
+      		<form method="GET" action="../post/update" class="edit-form">
       			<input type="hidden" id="updateId" name="updateId" value="" />
         		<p>Bạn có muốn sửa ID: <span id="updateText"></span> ?</p>
 		        <button type="submit" class="btn success-btn load-target" name="requestupdate">Xác nhận</button>
