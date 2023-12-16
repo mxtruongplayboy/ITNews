@@ -21,9 +21,15 @@ public class postBO {
 		return postDAO.getAllPostByAccountID(id);
 	}
 	
-	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot) {
+	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot, String description) {
 		postDAO postDAO = new postDAO();
-		postDAO.addPost(title, image, content, status, categoryID, accountsID, hot);
+		postDAO.addPost(title, image, content, status, categoryID, accountsID, hot, description);
+	}
+	
+	public void updatePost(int id, String title, String image, String content, String status, int categoryID, int accountID,
+			boolean hot, String description) {
+		postDAO postDAO = new postDAO();
+		postDAO.updatePost(id, title, image, content, status, categoryID, accountID, hot, description);
 	}
 	
 	public void deletePost(int id) {

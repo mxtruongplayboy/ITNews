@@ -64,7 +64,9 @@ pageEncoding="UTF-8"%>
          				<div class="myform__line"></div>
 					    <form method="POST" action="../post/create" class="myform-form" onsubmit="return validateForm()" enctype="multipart/form-data">
 					        <label>Tiêu đề</label>
-					        <input type="text" id="title" name="title" class="input_text"/>		       
+					        <input type="text" id="title" name="title" class="input_text"/>
+					        <label>Mô tả</label>
+					        <input type="text" id="description" name="description" class="input_text"/>
 					        <label>Ảnh</label>
 					        <input type="file" id="image" name="image" accept="image/*" class="input_file"/><br /><br />
 					        <label>Nội dung</label><br /><br />
