@@ -5,7 +5,6 @@ import java.sql.Date;
 public class post {
 	private int id;
 	private String title;
-	private String slug;
 	private String image;
 	private String content;
 	private Date created_at;
@@ -14,12 +13,11 @@ public class post {
 	private categorieFK categorieFK;
 	private accountFK accountFK;
 	private boolean hot;
-	public post(int id, String title, String slug, String image, String content, Date created_at, Date updated_at,
+	public post(int id, String title, String image, String content, Date created_at, Date updated_at,
 			String status, model.Bean.categorieFK categorieFK, model.Bean.accountFK accountFK, boolean hot) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.slug = slug;
 		this.image = image;
 		this.content = content;
 		this.created_at = created_at;
@@ -40,12 +38,6 @@ public class post {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getSlug() {
-		return slug;
-	}
-	public void setSlug(String slug) {
-		this.slug = slug;
 	}
 	public String getImage() {
 		return image;

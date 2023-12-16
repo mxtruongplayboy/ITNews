@@ -31,18 +31,10 @@ public class CategoryCreate extends HttpServlet {
 		String name = request.getParameter("name");
 		String slug = request.getParameter("slug");
 		String status = request.getParameter("status");
-		if(bo.checkSlug(slug)) {
-			bo.addCategorie(name, slug, status);
-			List<categorie> listCategorie =  bo.getAllCategorie();
-			request.getSession().setAttribute("listCategorie", listCategorie);
-			response.sendRedirect("../admin/categorie.jsp");
-		}
-		else {
-			categorie Categorie = new categorie(-1, name, slug, null, null, status);
-			request.getSession().setAttribute("Categorie", Categorie);
-			request.getSession().setAttribute("error", "error");
-			response.sendRedirect("../admin/addCategorie.jsp");
-		}
+		bo.addCategorie(name, slug, status);
+		List<categorie> listCategorie =  bo.getAllCategorie();
+		request.getSession().setAttribute("listCategorie", listCategorie);
+		response.sendRedirect("../admin/categorie.jsp");
 	}
 
 }

@@ -22,7 +22,7 @@ public class categorieDAO {
 			String sql = "SELECT * FROM categories";
 			ResultSet rs = sm.executeQuery(sql);
 			while(rs.next()) {
-				listCategorie.add(new categorie(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6)));
+				listCategorie.add(new categorie(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getString(5)));
 			}
 		}
 		catch (Exception e) {
@@ -67,7 +67,7 @@ public class categorieDAO {
 	}
 	
 	public categorie getCategorie(int id) {
-		categorie Categorie = new categorie(id, null, null, null, null, null);
+		categorie Categorie = new categorie(id, null, null, null, null);
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
@@ -78,10 +78,9 @@ public class categorieDAO {
 				System.out.println(rs.getInt(1));
 				Categorie.setId(rs.getInt(1));
 				Categorie.setName(rs.getString(2));
-				Categorie.setSlug(rs.getString(3));
-				Categorie.setCreated_at(rs.getDate(4));
-				Categorie.setUpdated_at(rs.getDate(5));
-				Categorie.setStatus(rs.getString(6));
+				Categorie.setCreated_at(rs.getDate(3));
+				Categorie.setUpdated_at(rs.getDate(4));
+				Categorie.setStatus(rs.getString(5));
 			}
 		}
 		catch (Exception e) {
@@ -90,19 +89,18 @@ public class categorieDAO {
 		return Categorie;
 	}
 	
-	public void updateCategorie(int id, String name, String slug, Date created_at, Date updated_at, String status) {
+	public void updateCategorie(int id, String name, Date created_at, Date updated_at, String status) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
 			Statement sm = conn.createStatement();
-			String sql = "UPDATE categories SET name=?, slug=?, created_at=?, updated_at=?, status=? WHERE id=?";
+			String sql = "UPDATE categories SET name=?, created_at=?, updated_at=?, status=? WHERE id=?";
 			try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			    preparedStatement.setString(1, name);
-			    preparedStatement.setString(2, slug);
-			    preparedStatement.setDate(3, created_at);
-			    preparedStatement.setDate(4, updated_at);
-			    preparedStatement.setString(5, status);
-			    preparedStatement.setInt(6, id);
+			    preparedStatement.setDate(2, created_at);
+			    preparedStatement.setDate(3, updated_at);
+			    preparedStatement.setString(4, status);
+			    preparedStatement.setInt(5, id);
 			    preparedStatement.executeUpdate();
 			}
 		}
@@ -127,22 +125,5 @@ public class categorieDAO {
 			System.out.print(e);
 		}
 		return listCategorieFK;
-	}
-	
-	public boolean checkSlug(String slug) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
-			Statement sm = conn.createStatement();
-			String sql = "SELECT * FROM categories WHERE slug = '"+slug+"'";
-			ResultSet rs = sm.executeQuery(sql);
-			if(rs.next()) {
-				return false;
-			}
-		}
-		catch (Exception e) {
-			System.out.print(e);
-		}
-		return true;
 	}
 }

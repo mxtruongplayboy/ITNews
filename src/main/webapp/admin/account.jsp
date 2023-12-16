@@ -54,6 +54,11 @@ pageEncoding="UTF-8"%>
     </script>
     </head>
     <body>
+    	<%
+    		if((account)request.getSession().getAttribute("AccountLogin") == null) {
+    			response.sendRedirect("../account/checkLogin");
+    		}
+        %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
             <%@include file="header.jsp" %>

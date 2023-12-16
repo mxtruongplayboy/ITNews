@@ -1,3 +1,4 @@
+<%@page import="model.Bean.post"%>
 <%@page import="model.Bean.categorieFK"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.sql.Date"%>
@@ -28,8 +29,7 @@ pageEncoding="UTF-8"%>
               var title = document.getElementById("title").value;
               var slug = document.getElementById("slug").value;
               var image = document.getElementById("image").value;
-              var content = document.getElementById("content").value;
-              if(title == "" || slug == "" || image == "" || content == "") {
+              if(title == "" || slug == "" || image == "") {
                   alert('Vui lòng nhập nội dung trước khi xác nhận.');
                   return false;
               }
@@ -46,10 +46,15 @@ pageEncoding="UTF-8"%>
 	          const month = String(now.getMonth() + 1).padStart(2, '0');
 	          const day = String(now.getDate()).padStart(2, '0');
 	          return `${year}-${month}-${day}`;
-	      }
+	      }      
     </script>
     </head>
     <body>
+    	<%
+    		if((account)request.getSession().getAttribute("AccountLogin") == null) {
+    			response.sendRedirect("../account/checkLogin");
+    		}
+        %>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
             <%@include file="header.jsp" %>
@@ -58,15 +63,13 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Thêm bài viết</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="" class="myform-form" onsubmit="return validateForm()">
+					    <form method="POST" action="../post/create" class="myform-form" onsubmit="return validateForm()" enctype="multipart/form-data">
 					        <label>Tiêu đề</label>
-					        <input type="text" id="title" name="title" class="input_text"/>
-					        <label>Slug</label>
-					        <input type="text" id="slug" name="slug" class="input_text"/>
+					        <input type="text" id="title" name="title" class="input_text"/>		       
 					        <label>Ảnh</label>
-					        <input type="file" id="image" name="image" accept="image/*" class="input_text"/><br /><br />
+					        <input type="file" id="image" name="image" accept="image/*" class="input_file"/><br /><br />
 					        <label>Nội dung</label><br /><br />
-					        <textarea id="content" name="content"></textarea><br /><br />
+					        <textarea id="content" name="content" class="myform__editor"></textarea><br /><br />
 					        <div class="myform_block">
 						        <div class="myform_row">
 						        	<label>Ngày tạo</label>
@@ -76,7 +79,8 @@ pageEncoding="UTF-8"%>
 					        		<label>Ngày cập nhật</label>
 					        		<input type="date" id="updated_at" name="updated_at" value="NULL" readonly class="input_date"/>
 					        	</div>
-					        </div>        
+					        </div>
+					        <br /><br />        
 					        <div class="myform_block">
 						        <div class="myform_row">
 							        <label>Trạng thái</label>
@@ -87,7 +91,7 @@ pageEncoding="UTF-8"%>
 						        </div>
 						        <div class="myform_row">
 							        <label>Danh mục</label>
-							        <select name="status" class="myform__status">
+							        <select name="categorieID" class="myform__status">
 							        <%
 								        List<categorieFK> listCategorieFK = (List<categorieFK>)request.getSession().getAttribute("listCategorieFK");
 										if(listCategorieFK != null) {
@@ -100,7 +104,9 @@ pageEncoding="UTF-8"%>
 							        %>
 							        </select>
 						        </div>
+						        <input name="accountsID" value="<%= ((account)(request.getSession().getAttribute("AccountLogin"))).getId() %>" hidden/>
 					        </div>
+					        <br /><br />
 					        <label>Tin nổi bật</label>
 					        <label>
 							   <input type="radio" name="hot" value="true"> Tin nổi bật
@@ -108,7 +114,7 @@ pageEncoding="UTF-8"%>
 							<label>
 							   <input type="radio" name="hot" value="false" checked> Không nổi bật
 							</label>
-							<div class="myform_footer">
+							<div class="myform_footer footer_post">
 					        	<div class="myform__line"></div>
 						        <div class="myform__funtion">
 						             <button type="submit" class="btn success-btn load-target" name="add">Xác nhận</button>
