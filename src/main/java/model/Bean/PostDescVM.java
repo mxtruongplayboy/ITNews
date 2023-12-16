@@ -6,10 +6,11 @@ public class PostDescVM {
 	private int id;
 	private String title;
 	private String imgUrl;
+	private String description;
 	private Date creationDate;
 	private boolean isHot;
 	private boolean isLatest;
-	public PostDescVM(int id, String title, String imgUrl, Date creationDate, boolean isHot) {
+	public PostDescVM(int id, String title, String imgUrl, String description, Date creationDate, boolean isHot) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -35,6 +36,12 @@ public class PostDescVM {
 	}
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public Date getCreationDate() {
 		return creationDate;

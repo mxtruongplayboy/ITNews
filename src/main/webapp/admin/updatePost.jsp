@@ -62,18 +62,21 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Cập nhật bài viết</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../post/create" class="myform-form" onsubmit="return validateForm()" enctype="multipart/form-data">
+					    <form method="POST" action="../post/update" class="myform-form" onsubmit="return validateForm()" enctype="multipart/form-data">
 					    	<%
          					post Post = (post)request.getSession().getAttribute("Post");
          					if(Post != null) {
          						request.getSession().removeAttribute("Post");
          					%>
+         					<input type="text" id="id" name="id" value="<%=Post.getId() %>" hidden="hidden"/>
 					        <label>Tiêu đề</label>
 					        <input type="text" id="title" name="title" class="input_text" value="<%= Post.getTitle() %>"/>		       
 					        <label>Ảnh</label>
 					        <input type="file" id="image" name="image" accept="image/*" class="input_file"/><br /><br />
+					        <label>Mô tả</label>
+					        <input type="text" id="description" name="description" class="input_text" value="<%= Post.getDescription() %>"/>
 					        <label>Nội dung</label><br /><br />
-					        <textarea id="content" name="content" class="myform__editor"></textarea><br /><br />
+					        <textarea id="content" name="content" class="myform__editor"><%=Post.getContent() %></textarea><br /><br />
 					        <div class="myform_block">
 						        <div class="myform_row">
 						        	<label>Ngày tạo</label>
