@@ -54,7 +54,7 @@
                     </form>
                 </div>
                 <div class="header__admin">
-                    <a href="#!" class="header__login-btn">Login</a>
+                    <a href="../admin/login.jsp" class="header__login-btn">Đăng nhập</a>
                 </div>
             </div>
         </div>
@@ -204,7 +204,7 @@
 			                        %>
                                 </h3>
                                 <span class="news-item__date">Ngày đăng: <%=item.getCreationDate() %></span>
-                                <div class="news-item__desc">Ngày 05/12/2023, tại văn phòng Khoa CN Thông tin - trường Đại học Bách khoa– ĐHĐN đã tổ chức Hội nghị sinh viên nghiên cứu khoa học năm học 2023-2024. Tham gia hội nghị có tổng số 11 đề tài thuộc nhiều lĩnh vực Công nghệ Thông tin</div>
+                                <div class="news-item__desc"><%=item.getDescription() %></div>
                             </div>
                         </li>
                         <%

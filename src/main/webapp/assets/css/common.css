@@ -488,13 +488,20 @@ a {
 .myform_block {	
  	display: flex;
  	align-items: center;
+ 	justify-content: space-between;
 }
 
 .myform_row {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	width: 100%;
 	column-gap: 20px;
+}
+
+.myform_row__home {
+	column-gap: normal;
+	width: 60%;	
+	justify-content: space-between;
 }
 
 .myform-form .input_date {

@@ -16,9 +16,20 @@ public class postBO {
 		return postDAO.getAllPost();
 	}
 	
-	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot) {
+	public List<post> getAllpostByAccountID(int id) {
 		postDAO postDAO = new postDAO();
-		postDAO.addPost(title, image, content, status, categoryID, accountsID, hot);
+		return postDAO.getAllPostByAccountID(id);
+	}
+	
+	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot, String description) {
+		postDAO postDAO = new postDAO();
+		postDAO.addPost(title, image, content, status, categoryID, accountsID, hot, description);
+	}
+	
+	public void updatePost(int id, String title, String image, String content, String status, int categoryID, int accountID,
+			boolean hot, String description) {
+		postDAO postDAO = new postDAO();
+		postDAO.updatePost(id, title, image, content, status, categoryID, accountID, hot, description);
 	}
 	
 	public void deletePost(int id) {
@@ -51,5 +62,10 @@ public class postBO {
 	public PostDetailVM getPostDetailById(int id) {
 		postDAO postDAO = new postDAO();
 		return postDAO.getPostDetailById(id);
+	}
+	
+	public post getPostByID(int id) {
+		postDAO postDAO = new postDAO();
+		return postDAO.getPostByID(id);
 	}
 }

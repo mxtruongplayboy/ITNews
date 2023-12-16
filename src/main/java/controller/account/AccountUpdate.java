@@ -53,12 +53,15 @@ public class AccountUpdate extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 	    	String username = request.getParameter("username");
 			String fullname = request.getParameter("fullname");
+			String newPassword = request.getParameter("newPassword");
 			String role = request.getParameter("role");
 			Date created_at = Date.valueOf(request.getParameter("created_at"));
 			Date updated_at = Date.valueOf(request.getParameter("updated_at"));
 			String status = request.getParameter("status");
 	    	accountBO accountBO = new accountBO();
-	    	accountBO.updateAccount(id, username, fullname, role, created_at, updated_at, status);
+	    	accountBO.updateAccount(id, username, newPassword, fullname, role, created_at, updated_at, status);
+	    	account Account = accountBO.getAccount(id);
+	    	request.getSession().setAttribute("AccountLogin", Account);
 	    	List<account> listAccount = new ArrayList<>();
 		    listAccount = accountBO.getAllaccount();
 		    request.getSession().setAttribute("listAccount", listAccount);

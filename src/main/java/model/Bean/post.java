@@ -13,8 +13,9 @@ public class post {
 	private categorieFK categorieFK;
 	private accountFK accountFK;
 	private boolean hot;
+	private String description;
 	public post(int id, String title, String image, String content, Date created_at, Date updated_at,
-			String status, model.Bean.categorieFK categorieFK, model.Bean.accountFK accountFK, boolean hot) {
+			String status, model.Bean.categorieFK categorieFK, model.Bean.accountFK accountFK, boolean hot, String description) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -26,6 +27,7 @@ public class post {
 		this.categorieFK = categorieFK;
 		this.accountFK = accountFK;
 		this.hot = hot;	
+		this.description = description;
 	}
 	public int getId() {
 		return id;
@@ -86,5 +88,11 @@ public class post {
 	}
 	public void setHot(boolean hot) {
 		this.hot = hot;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

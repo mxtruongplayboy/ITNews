@@ -30,7 +30,30 @@ public class postDAO {
 					+ "";
 			ResultSet rs = sm.executeQuery(sql);
 			while(rs.next()) {
-				listPost.add(new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(11)), new accountFK(rs.getInt(9), rs.getString(12)), rs.getBoolean(10)));
+				listPost.add(new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(12)), new accountFK(rs.getInt(9), rs.getString(13)), rs.getBoolean(10), rs.getString(11)));
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return listPost;
+	}
+	
+	public List<post> getAllPostByAccountID(int id) {
+		List<post> listPost = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
+			Statement sm = conn.createStatement();
+			String sql = "SELECT posts.*, categories.name, accounts.fullname\r\n"
+					+ "FROM posts\r\n"
+					+ "JOIN categories ON posts.category_id = categories.id\r\n"
+					+ "JOIN accounts ON posts.accounts_id = accounts.id\r\n"
+					+ "WHERE accounts.id = "+ id
+					+ "";
+			ResultSet rs = sm.executeQuery(sql);
+			while(rs.next()) {
+				listPost.add(new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(12)), new accountFK(rs.getInt(9), rs.getString(13)), rs.getBoolean(10), rs.getString(11)));
 			}
 		}
 		catch (Exception e) {
@@ -53,7 +76,7 @@ public class postDAO {
 	                 " LIMIT 1;";
 			ResultSet rs = sm.executeQuery(sql);
 			if(rs.next()) {
-				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(11)), new accountFK(rs.getInt(9), rs.getString(12)), rs.getBoolean(10));
+				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(12)), new accountFK(rs.getInt(9), rs.getString(13)), rs.getBoolean(10), rs.getString(11));
 				System.out.println(rs.getInt(1));
 			}
 		}
@@ -77,7 +100,7 @@ public class postDAO {
 	                 " LIMIT 1;";
 			ResultSet rs = sm.executeQuery(sql);
 			if(rs.next()) {
-				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(11)), new accountFK(rs.getInt(9), rs.getString(12)), rs.getBoolean(10));
+				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(12)), new accountFK(rs.getInt(9), rs.getString(13)), rs.getBoolean(10), rs.getString(11));
 				System.out.println(rs.getInt(1));
 			}
 		}
@@ -87,12 +110,12 @@ public class postDAO {
 		return Post;
 	}
 	
-	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot) {
+	public void addPost(String title, String image, String content, String status, int categoryID, int accountsID, boolean hot, String description) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
 			Statement sm = conn.createStatement();
-			String sql = "INSERT INTO posts (title, image, content, status, category_id, accounts_id, hot) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO posts (title, image, content, status, category_id, accounts_id, hot, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			    preparedStatement.setString(1, title);
 			    preparedStatement.setString(2, image);
@@ -101,6 +124,7 @@ public class postDAO {
 			    preparedStatement.setInt(5, categoryID);
 			    preparedStatement.setInt(6, accountsID);
 			    preparedStatement.setBoolean(7, hot);
+			    preparedStatement.setString(8, description);
 			    preparedStatement.executeUpdate();
 			}
 		}
@@ -115,7 +139,7 @@ public class postDAO {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
 			String sql = request.getCategoryId() == 0 ? 
 					"SELECT posts.id, posts.title, posts.image, " +
-		             "posts.created_at, posts.hot as isHot , categories.id AS category_id, categories.name " +
+		             "posts.created_at, posts.hot as isHot , posts.description as description , categories.id AS category_id, categories.name " +
 		             "FROM posts " +
 		             "JOIN categories ON posts.category_id = categories.id " +
 		             "WHERE (posts.title LIKE ? OR posts.content LIKE ?) " +
@@ -141,7 +165,7 @@ public class postDAO {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				listPost.add(new PostDescVM(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getBoolean("isHot")));
+				listPost.add(new PostDescVM(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("description") , rs.getDate(4), rs.getBoolean("isHot")));
 			}
 		}
 		catch (Exception e) {
@@ -189,5 +213,56 @@ public class postDAO {
 			System.out.print(e);
 		}
 		return postDetail;
+	}
+	
+	public post getPostByID(int id) {
+		post Post = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
+			Statement sm = conn.createStatement();
+			String sql = "SELECT posts.*, categories.name, accounts.fullname " +
+	                 "FROM posts " +
+	                 "JOIN categories ON posts.category_id = categories.id " +
+	                 "JOIN accounts ON posts.accounts_id = accounts.id " +
+	                 "WHERE posts.id = "+ id +
+	                 ";";
+			ResultSet rs = sm.executeQuery(sql);
+			if(rs.next()) {
+				Post = new post(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getDate(6), rs.getString(7), new categorieFK(rs.getInt(8), rs.getString(12)), new accountFK(rs.getInt(9), rs.getString(13)), rs.getBoolean(10), rs.getString(11));
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return Post;
+	}
+
+	public void updatePost(int id, String title, String image, String content, String status, int categoryID,
+			int accountID, boolean hot, String description) {
+		try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt", "root", "");
+	        
+	        // Sử dụng PreparedStatement để tránh SQL Injection
+	        String sql = "UPDATE posts SET title=?, image=?, content=?, status=?, category_id=?, accounts_id=?, hot=?, description=? WHERE id=?";
+	        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+	            preparedStatement.setString(1, title);
+	            preparedStatement.setString(2, image);
+	            preparedStatement.setString(3, content);
+	            preparedStatement.setString(4, status);
+	            preparedStatement.setInt(5, categoryID);
+	            preparedStatement.setInt(6, accountID);
+	            preparedStatement.setBoolean(7, hot);
+	            preparedStatement.setString(8, description);
+	            
+	            // Thiết lập tham số WHERE (id) cho truy vấn UPDATE
+	            preparedStatement.setInt(9, id);
+	            
+	            preparedStatement.executeUpdate();
+	        }
+	    } catch (Exception e) {
+	        System.out.print(e);
+	    }
 	}
 }

@@ -25,9 +25,9 @@ public class accountBO {
 		accountDAO.deleteAccount(id);
 	}
 	
-	public void updateAccount(int id, String username, String fullname, String role, Date created_at, Date updated_at, String status) {
+	public void updateAccount(int id, String username, String password, String fullname, String role, Date created_at, Date updated_at, String status) {
 		accountDAO accountDAO = new accountDAO();
-		accountDAO.updateAccount(id, username, fullname, role, created_at, updated_at, status);
+		accountDAO.updateAccount(id, username, password, fullname, role, created_at, updated_at, status);
 	}
 	
 	public account getAccount(int id) {
