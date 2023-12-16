@@ -29,11 +29,17 @@ public class AccountCheckLogin extends HttpServlet {
 		accountBO accountBO = new accountBO();
 		account Account = accountBO.getAccountByUsPa(username, password);
 		if(Account != null) {
-			request.getSession().setAttribute("AccountLogin", Account);
-			response.sendRedirect("../admin/account.jsp");
+			if(Account.getStatus().equals("Hoạt động")) {
+				request.getSession().setAttribute("AccountLogin", Account);
+				response.sendRedirect("../admin/home.jsp");
+			}
+			else {
+				request.getSession().setAttribute("error", "Block");
+				response.sendRedirect("../admin/login.jsp");
+			}
 		}
 		else {
-			request.getSession().setAttribute("error", "error");
+			request.getSession().setAttribute("error", "NotValid");
 			response.sendRedirect("../admin/login.jsp");
 		}
 	}

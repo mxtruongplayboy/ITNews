@@ -44,7 +44,6 @@ pageEncoding="UTF-8"%>
                 	<% } else { %>
                 	<p>Admin</p>
                 	<% } %>
-                    <a href="#">Hồ sơ cá nhân</a>
                     <a href="../account/logout">Đăng xuất</a>
                 </div>
             </div>

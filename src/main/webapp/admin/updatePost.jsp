@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-        <title>Quản lý bài viết</title>
+        <title>Cập nhật bài viết</title>
         <script>
 	      function validateForm() {
               var title = document.getElementById("title").value;
@@ -60,11 +60,16 @@ pageEncoding="UTF-8"%>
             <main class="main-content" id="main-content">   
 	            <div class="table-block">        
          			<div class="myform">
-         				<h2 class="myform__title">Thêm bài viết</h2>
+         				<h2 class="myform__title">Cập nhật bài viết</h2>
          				<div class="myform__line"></div>
 					    <form method="POST" action="../post/create" class="myform-form" onsubmit="return validateForm()" enctype="multipart/form-data">
+					    	<%
+         					post Post = (post)request.getSession().getAttribute("Post");
+         					if(Post != null) {
+         						request.getSession().removeAttribute("Post");
+         					%>
 					        <label>Tiêu đề</label>
-					        <input type="text" id="title" name="title" class="input_text"/>		       
+					        <input type="text" id="title" name="title" class="input_text" value="<%= Post.getTitle() %>"/>		       
 					        <label>Ảnh</label>
 					        <input type="file" id="image" name="image" accept="image/*" class="input_file"/><br /><br />
 					        <label>Nội dung</label><br /><br />
@@ -72,11 +77,11 @@ pageEncoding="UTF-8"%>
 					        <div class="myform_block">
 						        <div class="myform_row">
 						        	<label>Ngày tạo</label>
-					        		<input type="date" id="created_at" name="created_at" value="<%= LocalDate.now() %>" readonly class="input_date"/>
+					        		<input type="date" id="created_at" name="created_at" value="<%= Post.getCreated_at() %>"  readonly class="input_date"/>
 						        </div>
 					        	<div class="myform_row">
 					        		<label>Ngày cập nhật</label>
-					        		<input type="date" id="updated_at" name="updated_at" value="NULL" readonly class="input_date"/>
+					        		<input type="date" id="updated_at" name="updated_at" value="<%= LocalDate.now() %>" readonly class="input_date"/>
 					        	</div>
 					        </div>
 					        <br /><br />        
@@ -84,8 +89,13 @@ pageEncoding="UTF-8"%>
 						        <div class="myform_row">
 							        <label>Trạng thái</label>
 							        <select name="status" class="myform__status">
-							            <option value="Hoạt động">Hoạt động</option>
+							        <% if(Post.getStatus().equals("Hoạt động")) {%>
+							            <option value="Hoạt động" selected>Hoạt động</option>
 							            <option value="Không hoạt động">Không hoạt động</option>
+							        <% } else { %>
+							        	<option value="Hoạt động">Hoạt động</option>
+							            <option value="Không hoạt động" selected>Không hoạt động</option>
+							        <% } %>
 							        </select>
 						        </div>
 						        <div class="myform_row">
@@ -95,9 +105,13 @@ pageEncoding="UTF-8"%>
 								        List<categorieFK> listCategorieFK = (List<categorieFK>)request.getSession().getAttribute("listCategorieFK");
 										if(listCategorieFK != null) {
 											for(categorieFK CategorieFK : listCategorieFK) {
+												if(Post.getCategorieFK().getId() == CategorieFK.getId()) {
 							        %>
-							            <option value="<%= CategorieFK.getId() %>"><%= CategorieFK.getName() %></option>
+							            <option value="<%= CategorieFK.getId() %>" selected><%= CategorieFK.getName() %></option>
+							        <% } else { %>
+							        	<option value="<%= CategorieFK.getId() %>"><%= CategorieFK.getName() %></option>
 							        <%
+							        			}
 											}
 										}
 							        %>
@@ -120,6 +134,9 @@ pageEncoding="UTF-8"%>
 					             	<button type="reset" class="btn success-btn load-target" onclick="cancel()">   Huỷ   </button>
 						        </div>
 					        </div>
+					        <%
+         					}
+					        %>
 					    </form>
 					</div>
                 </div>

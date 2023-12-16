@@ -19,8 +19,18 @@
 				<label for="password">Mật khẩu:</label> <input type="password"
 					id="password" name="password" required />
 			</div>
+			<%
+			String error = (String)request.getSession().getAttribute("error");
+			if(error != null) {
+				request.getSession().removeAttribute("error");
+				if(error.equals("NotValid")) {
+			%>
 			<div><p style="color: red;">Tên tài khoản hoặc mật khẩu sai</p></div>
+			<% } else if(error.equals("Block")) { %>
 			<div><p style="color: red;">Tài khoản đang bị khoá</p></div>
+			<% } 
+			}
+			%>
 			<div class="form-group">
 				<button type="submit">Đăng nhập</button>
 			</div>
