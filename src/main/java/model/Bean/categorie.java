@@ -5,16 +5,14 @@ import java.sql.Date;
 public class categorie {
 	private int id;
 	private String name;
-	private String slug;
 	private Date created_at;
 	private Date updated_at;
 	private String status;
 	
-	public categorie(int id, String name, String slug, Date created_at, Date updated_at, String status) {
+	public categorie(int id, String name, Date created_at, Date updated_at, String status) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.slug = slug;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.status = status;
@@ -31,12 +29,6 @@ public class categorie {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getSlug() {
-		return slug;
-	}
-	public void setSlug(String slug) {
-		this.slug = slug;
 	}
 	public Date getCreated_at() {
 		return created_at;

@@ -1,3 +1,4 @@
+<%@page import="model.Bean.account"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +30,24 @@ pageEncoding="UTF-8"%>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
             </button>
+            
+            <div class="avatar-container">
+                <div class="avatar">
+                    <img src="../assets/images/user.png" alt="Avatar" />
+                </div>
+                <div class="dropdown-content">
+                    <%
+            			account AccountLogin = (account)request.getSession().getAttribute("AccountLogin");
+        			%>
+                	<% if(AccountLogin != null) { %>
+                	<p><%= AccountLogin.getFullname() %></p>
+                	<% } else { %>
+                	<p>Admin</p>
+                	<% } %>
+                    <a href="#">Hồ sơ cá nhân</a>
+                    <a href="../account/logout">Đăng xuất</a>
+                </div>
+            </div>
         </section>
     </body>
 </html>

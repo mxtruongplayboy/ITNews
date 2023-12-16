@@ -43,25 +43,14 @@ pageEncoding="UTF-8"%>
 	          const day = String(now.getDate()).padStart(2, '0');
 	          return `${year}-${month}-${day}`;
 	      }
-	      
-	      function validateSlug() {
-			  var slug = document.getElementById("slug").value;
-			  document.getElementById("slug").value = slug.toLowerCase().replace(/[^a-zA-Z0-9-.]/g, '');
-		  }
-	      
-	      function showAnnouce() {
-			  document.querySelector(".popup-annouce").classList.add("active");
-		  }
-				
-	      function unshowAnnouce() {
-			  document.querySelector(".popup-annouce").classList.remove("active");
-		  }
     </script>
     </head>
     <body>
     	<%
-    	String error = (String)request.getSession().getAttribute("error");
     	categorie Categorie = (categorie)request.getSession().getAttribute("Categorie");
+    	if((account)request.getSession().getAttribute("AccountLogin") == null) {
+			response.sendRedirect("../account/checkLogin");
+		}
     	%>
         <%@include file="sidebar.jsp"%>
         <section class="page-content" id="page-content">
@@ -71,21 +60,9 @@ pageEncoding="UTF-8"%>
          			<div class="myform">
          				<h2 class="myform__title">Thêm danh mục</h2>
          				<div class="myform__line"></div>
-					    <form method="POST" action="../category/create" class="myform-form" onsubmit="return validateForm()">
-					        
-					        <% if(Categorie != null) {
-					      		request.getSession().removeAttribute("Categorie");
-					        %>
+					    <form method="POST" action="../category/create" class="myform-form" onsubmit="return validateForm()">      
 					        <label>Tên danh mục</label>
-					        <input type="text" id="name" name="name" class="input_text" value="<%= Categorie.getName() %>"/><br /><br />
-					        <label>Slug</label>
-					        <input type="text" id="slug" name="slug" class="input_text" oninput="validateSlug()" value="<%= Categorie.getSlug() %>"/><br /><br />
-					        <% } else { %>
-					        <label>Tên danh mục</label>
-					        <input type="text" id="name" name="name" class="input_text"/><br /><br />
-					        <label>Slug</label>
-					        <input type="text" id="slug" name="slug" class="input_text" oninput="validateSlug()"/><br /><br />
-					        <% } %>		     
+					        <input type="text" id="name" name="name" class="input_text" value="<%= Categorie.getName() %>"/><br /><br />			           	     
 					        <div class="myform_block">
 						        <div class="myform_row">
 						        	<label>Ngày tạo</label>
@@ -97,24 +74,11 @@ pageEncoding="UTF-8"%>
 					        	</div>
 					        </div>
 					        <br /><br />
-					        <% if(Categorie != null) { %>
-					        <label>Trạng thái</label>
-					        <select name="status" class="myform__status">
-					        	<% if(Categorie.getStatus().equals("Hoạt động")) {%>
-					            <option value="Hoạt động" selected>Hoạt động</option>
-					            <option value="Không hoạt động">Không hoạt động</option>
-					            <%} else { %>
-					            <option value="Hoạt động">Hoạt động</option>
-					            <option value="Không hoạt động" selected>Không hoạt động</option>
-					            <%} %>
-					        </select>
-					        <% } else { %>
 					        <label>Trạng thái</label>
 					        <select name="status" class="myform__status">
 					            <option value="Hoạt động">Hoạt động</option>
 					            <option value="Không hoạt động">Không hoạt động</option>
 					        </select>
-					        <% } %>	
 					        <br /><br />
 					        <div class="myform_footer">
 					        	<div class="myform__line"></div>
@@ -128,19 +92,5 @@ pageEncoding="UTF-8"%>
                 </div>
             </main>
         </section>
-        <div class="popup-annouce popup">
-	      		<form method="POST" action="" class="annouce-form">
-	        		<p>Slug đã tồn tại, hãy chọn slug khác</p>
-			        <button type="reset" class="btn success-btn " onclick="unshowAnnouce()">   Huỷ   </button>
-			    </form>
-      	</div>
-        <%
-      		if(error != null) {
-          		request.getSession().removeAttribute("error");
-      	%>
-	      	<script type="text/javascript">
-	      	showAnnouce();
-	      	</script>
-      	<% } %>
     </body>
 </html>

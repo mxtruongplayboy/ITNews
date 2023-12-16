@@ -93,7 +93,7 @@ public class accountDAO {
 	}
 	
 	public account getAccount(int id) {
-		account Account = new account(id, null, null, null, null, null, null, null);
+		account Account = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
@@ -101,15 +101,7 @@ public class accountDAO {
 			String sql = "SELECT * FROM accounts WHERE id = "+id;
 			ResultSet rs = sm.executeQuery(sql);
 			if(rs.next()) {
-				System.out.println(rs.getInt(1));
-				Account.setId(rs.getInt(1));
-				Account.setUsername(rs.getString(2));
-				Account.setPassword(rs.getString(3));
-				Account.setFullname(rs.getString(4));
-				Account.setRole(rs.getString(5));
-				Account.setCreated_at(rs.getDate(6));
-				Account.setUpdated_at(rs.getDate(7));
-				Account.setStatus(rs.getString(8));
+				Account = new account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8));
 			}
 		}
 		catch (Exception e) {
@@ -150,5 +142,24 @@ public class accountDAO {
 			System.out.print(e);
 		}
 		return true;
+	}
+	
+	public account getAccountByUsPa(String username, String password) {
+		account Account = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tintuckhoacntt","root","");
+			Statement sm = conn.createStatement();
+			System.out.print("OK");
+			String sql = "SELECT * FROM accounts WHERE username = '"+username+"' AND password = '"+password+"'";
+			ResultSet rs = sm.executeQuery(sql);
+			if(rs.next()) {
+				Account = new account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getDate(7), rs.getString(8));
+			}
+		}
+		catch (Exception e) {
+			System.out.print(e);
+		}
+		return Account;
 	}
 }
