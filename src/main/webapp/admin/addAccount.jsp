@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
             referrerpolicy="no-referrer"
         />
         <title>Quản lý quản trị viên</title>
+        <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
         <script>
 	      function validateForm() {
               var username = document.getElementById("username").value;

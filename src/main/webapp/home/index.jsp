@@ -10,6 +10,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tin tức khoa</title>
+    
+    <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
 
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/homePage.css">
@@ -108,7 +110,7 @@
                     <article class="hot-news">
 	                    <div class="hot-news__img-container">
 	                        <a href="./detail?postId=<%=listPosts.get(0).getId() %>">
-	                        	<img src="<%=listPosts.get(0).getImgUrl() %>" class="hot-news__img" alt="">
+	                        	<img src="../assets/imagePosts/<%=listPosts.get(0).getImgUrl() %>" class="hot-news__img" alt="">
 	                        </a>
 	                    </div>
                         <h2 class="hot-news__title">
@@ -146,7 +148,7 @@
                         <article class="hot-latest-news">
                             <div class="hot-latest-news__img-container">
                                 <a href="./detail?postId=<%=item.getId() %>">
-                                    <img src="<%=item.getImgUrl() %>" class="hot-latest-news__img" alt="">
+                                    <img src="../assets/imagePosts/<%=item.getImgUrl() %>" class="hot-latest-news__img" alt="">
                                 </a>
                             </div>
                             <h2 class="hot-latest-news__title">
@@ -183,7 +185,7 @@
                         %>
                         <li class="news-item">
                             <a href="./detail?postId=<%=item.getId() %>" class="news-item__link">
-                                <img src="<%=item.getImgUrl() %>" alt="" class="news-item__img">
+                                <img src="../assets/imagePosts/<%=item.getImgUrl() %>" alt="" class="news-item__img">
                             </a>
                             <div class="content">
                                 <h3 class="news-item__title">
@@ -226,7 +228,7 @@
                    %>
                    <li class="news-item">
                        <a href="./detail?postId=<%=item.getId() %>" class="news-item__link">
-                           <img src="<%=item.getImgUrl() %>" alt="" class="news-item__img">
+                           <img src="../assets/imagePosts/<%=item.getImgUrl() %>" alt="" class="news-item__img">
                        </a>
                        <div class="content">
                            <h3 class="news-item__title">
@@ -247,7 +249,7 @@
 		                        %>
                            </h3>
                            <span class="news-item__date">Ngày đăng: <%=item.getCreationDate() %></span>
-                           <div class="news-item__desc">Ngày 05/12/2023, tại văn phòng Khoa CN Thông tin - trường Đại học Bách khoa– ĐHĐN đã tổ chức Hội nghị sinh viên nghiên cứu khoa học năm học 2023-2024. Tham gia hội nghị có tổng số 11 đề tài thuộc nhiều lĩnh vực Công nghệ Thông tin</div>
+                           <div class="news-item__desc"><%=item.getDescription() %></div>
                        </div>
                    </li>
                    <%

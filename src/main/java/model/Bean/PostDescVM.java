@@ -18,6 +18,7 @@ public class PostDescVM {
 		this.creationDate = creationDate;
 		this.isHot = isHot;
 		this.isLatest = false;
+		this.description = description;
 	}
 	public int getId() {
 		return id;

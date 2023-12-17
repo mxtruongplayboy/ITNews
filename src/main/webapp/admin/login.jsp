@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Trang đăng nhập</title>
-<link rel="stylesheet" href="../assets/css/login.css" />
+	<meta charset="UTF-8">
+	<title>Trang đăng nhập</title>
+	<link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
+	<link rel="stylesheet" href="../assets/css/login.css" />
 </head>
 <body>
 	<div class="login-container">
