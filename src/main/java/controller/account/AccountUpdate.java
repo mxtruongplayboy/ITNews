@@ -61,7 +61,9 @@ public class AccountUpdate extends HttpServlet {
 	    	accountBO accountBO = new accountBO();
 	    	accountBO.updateAccount(id, username, newPassword, fullname, role, created_at, updated_at, status);
 	    	account Account = accountBO.getAccount(id);
-	    	request.getSession().setAttribute("AccountLogin", Account);
+	    	if (role == "Admin") {
+	    		request.getSession().setAttribute("AccountLogin", Account);
+	    	}
 	    	List<account> listAccount = new ArrayList<>();
 		    listAccount = accountBO.getAllaccount();
 		    request.getSession().setAttribute("listAccount", listAccount);

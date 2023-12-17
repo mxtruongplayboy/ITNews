@@ -1,11 +1,15 @@
 package controller.post;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.BO.FileManager;
 import model.BO.categorieBO;
 import model.BO.postBO;
 import model.Bean.categorieFK;
@@ -59,70 +64,47 @@ public class PostUpdate extends HttpServlet {
 		int accountID = Integer.parseInt(request.getParameter("accountsID"));
 		boolean hot =Boolean.parseBoolean(request.getParameter("hot"));
 		String description = request.getParameter("description");
+        Date updated_at = Date.valueOf(request.getParameter("updated_at"));
 		postBO postBO = new postBO();
 		
-		// Start upload file
-		ServletContext servletContext = request.getServletContext();
-		// Get the real path to the root of the web application
-		String rootPath = servletContext.getRealPath("/");
+		if (part != null && part.getSize() > 0) {
+			// Start upload file
+			String basePath = FileManager.basePath + "\\assets\\imagePosts\\";
+			
+			// Extract file name and extension from Content-Disposition header
+	        String contentDispositionHeader = part.getHeader("Content-Disposition");
+	        fileName = extractFileName(contentDispositionHeader);
+	        FileManager fileManager = new FileManager();
+	        fileName = fileManager.extractFileNameWithoutExtension(fileName) + fileManager.generateUniqueId() + "." + fileManager.extractFileNameExtension(fileName);
+	        System.out.println(fileName);
+	        
+	        InputStream inputStream = part.getInputStream();
 
-		// Specify a relative path for storing uploaded files
-		String relativePath = "assets/imagePosts/";
+	        // Tạo đường dẫn đầy đủ đến file đích sử dụng đường dẫn tương đối
+	        Path outputPath = Paths.get(basePath, fileName);
 
-		// Combine the root path and relative path
-		String basePath = rootPath + relativePath;
-		System.out.println(basePath);
-		
-		// Extract file name and extension from Content-Disposition header
-        String contentDispositionHeader = part.getHeader("Content-Disposition");
-        fileName = extractFileName(contentDispositionHeader);
-        fileName = extractFileNameWithoutExtension(fileName) + generateUniqueId() + "." + extractFileNameExtension(fileName);
-        System.out.println(fileName);
-        
-        InputStream inputStream = part.getInputStream();
+	        // Sử dụng Files.copy để sao chép InputStream vào file
+	        Files.copy(inputStream, outputPath, StandardCopyOption.REPLACE_EXISTING);
 
-        // Tạo đường dẫn đầy đủ đến file đích sử dụng đường dẫn tương đối
-        Path outputPath = Paths.get(basePath, fileName);
-
-        // Sử dụng Files.copy để sao chép InputStream vào file
-        Files.copy(inputStream, outputPath, StandardCopyOption.REPLACE_EXISTING);
-
-        // Tùy chọn, đóng InputStream
-        inputStream.close();
-        // End
+	        // Tùy chọn, đóng InputStream
+	        inputStream.close();
+	        // End
+		}
             
-        postBO.updatePost(id, title, fileName, content, status, categorieID, accountID, hot, description);
-        List<post> listPost = new ArrayList<>();
-	    listPost = postBO.getAllpost();
-	    request.getSession().setAttribute("listPost", listPost);
-	    response.sendRedirect("../admin/post.jsp");
-	}
-	
-	private String extractFileNameWithoutExtension(String filePath) {
-	    // Remove the file extension
-	    int dotIndex = filePath.lastIndexOf('.');
-	    String fileName = "default";
-	    if (dotIndex > 0) {
-	    	fileName = filePath.substring(0, dotIndex);
-	    }
-
-	    return fileName;
-	}
-	
-	private String extractFileNameExtension(String filePath) {
-	    // Remove the file extension
-	    int dotIndex = filePath.lastIndexOf('.');
-	    String fileExtension = "png";
-	    if (dotIndex > 0) {
-	    	fileExtension = filePath.substring(dotIndex + 1);
-	    }
-
-	    return fileExtension;
-	}
-	
-	private String generateUniqueId() {
-		UUID id = UUID.randomUUID();
-		return id.toString();
+		if (fileName == null) {
+			postBO.updatePost(id, title, content, status, categorieID, accountID, hot, description, updated_at);
+		}
+		else {
+			post p = postBO.getPostByID(id);
+			if (p != null) {
+				String fileNameDelete = p.getImage();
+				File filePath = new File(FileManager.basePath + "\\assets\\imagePosts\\" + fileNameDelete);
+				filePath.delete();
+				
+				postBO.updateImagePost(id, fileName);
+			}
+		}
+		response.sendRedirect("../post/getAll");
 	}
 	
 	private String extractFileName(String contentDispositionHeader) {

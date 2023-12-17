@@ -20,6 +20,7 @@ pageEncoding="UTF-8"%>
             referrerpolicy="no-referrer"
         />
         <title>Hồ sơ cá nhân</title>
+        <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
         <script type="text/javascript">
         function validateForm() {
             var newPassword = document.getElementById("newPassword").value;
