@@ -1,5 +1,6 @@
 package controller.post;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.BO.FileManager;
 import model.BO.postBO;
 import model.Bean.post;
 
@@ -30,10 +32,13 @@ public class PostDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id =Integer.parseInt(request.getParameter("deleteId"));
 		postBO postBO = new postBO();
-		postBO.deletePost(id);
-		List<post> listPost = new ArrayList<>();
-	    listPost = postBO.getAllpost();
-	    request.getSession().setAttribute("listPost", listPost);
-	    response.sendRedirect("../admin/post.jsp");
+		post p = postBO.getPostByID(id);
+		if (postBO.deletePost(id) == true) {
+			String fileName = p.getImage();
+			File filePath = new File(FileManager.basePath + "\\assets\\imagePosts\\" + fileName);
+			if (filePath.delete() == true)
+				System.out.println("Delete successfully");
+		}
+	    response.sendRedirect("../post/getAll");
 	}
 }

@@ -24,11 +24,11 @@ pageEncoding="UTF-8"%>
             referrerpolicy="no-referrer"
         />
         <title>Cập nhật bài viết</title>
+        <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
         <script>
 	      function validateForm() {
               var title = document.getElementById("title").value;
-              var image = document.getElementById("image").value;
-              if(title == "" || image == "") {
+              if(title == "") {
                   alert('Vui lòng nhập nội dung trước khi xác nhận.');
                   return false;
               }
@@ -124,12 +124,27 @@ pageEncoding="UTF-8"%>
 					        </div>
 					        <br /><br />
 					        <label>Tin nổi bật</label>
+					        <%
+					        	if(Post.getHot() == true){
+					        %>
 					        <label>
+							   <input type="radio" name="hot" value="true" checked="checked"> Tin nổi bật
+							</label>
+							<label>
+							   <input type="radio" name="hot" value="false"> Không nổi bật
+							</label>
+							<%
+					        	} else {
+							%>
+							<label>
 							   <input type="radio" name="hot" value="true"> Tin nổi bật
 							</label>
 							<label>
-							   <input type="radio" name="hot" value="false" checked> Không nổi bật
+							   <input type="radio" name="hot" value="false" checked="checked"> Không nổi bật
 							</label>
+							<%
+					        	}
+							%>
 							<div class="myform_footer footer_post">
 					        	<div class="myform__line"></div>
 						        <div class="myform__funtion">

@@ -9,6 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tin tức khoa</title>
+    
+    <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
 
     <link rel="stylesheet" href="../assets/css/detailPage.css">
     <link rel="stylesheet" 

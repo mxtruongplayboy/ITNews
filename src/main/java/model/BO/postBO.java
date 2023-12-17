@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -26,15 +27,15 @@ public class postBO {
 		postDAO.addPost(title, image, content, status, categoryID, accountsID, hot, description);
 	}
 	
-	public void updatePost(int id, String title, String image, String content, String status, int categoryID, int accountID,
-			boolean hot, String description) {
+	public void updatePost(int id, String title, String content, String status, int categoryID, int accountID,
+			boolean hot, String description, Date updated_at) {
 		postDAO postDAO = new postDAO();
-		postDAO.updatePost(id, title, image, content, status, categoryID, accountID, hot, description);
+		postDAO.updatePost(id, title, content, status, categoryID, accountID, hot, description, updated_at);
 	}
 	
-	public void deletePost(int id) {
+	public boolean deletePost(int id) {
 		postDAO postDAO = new postDAO();
-		postDAO.deletePost(id);
+		return postDAO.deletePost(id);
 	}
 	
 	public List<PostDescVM> getAllPostDescVM(PostDescRequest request){
@@ -67,5 +68,10 @@ public class postBO {
 	public post getPostByID(int id) {
 		postDAO postDAO = new postDAO();
 		return postDAO.getPostByID(id);
+	}
+
+	public boolean updateImagePost(int id, String fileName) {
+		postDAO postDAO = new postDAO();
+		return postDAO.updateImagePost(id,fileName);
 	}
 }

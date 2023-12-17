@@ -21,6 +21,7 @@ pageEncoding="UTF-8"%>
             referrerpolicy="no-referrer"
         />
         <title>Quản lý danh mục</title>
+        <link rel="icon" href="../assets/logo/logo-small.png" type="image/png">
         <script>
 	      function validateForm() {
               var name = document.getElementById("name").value;
